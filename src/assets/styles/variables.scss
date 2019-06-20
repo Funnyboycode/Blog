@@ -1,0 +1,15 @@
+@mixin z-index1 {  // 背景效果显示层级
+  z-index: 10001 !important;
+}
+@mixin z-index2 { // 后台管理 主要区域显示层级
+  z-index: 10002 !important;
+}
+@mixin z-index3 { //头部区域显示层级
+  z-index: 10003 !important;
+}
+@mixin z-index4 { // 弹出提示框显示等级
+  z-index: 10004 !important;
+}
+@mixin z-index5 { //articles下拉框显示等级
+  z-index: 10005 !important;
+}

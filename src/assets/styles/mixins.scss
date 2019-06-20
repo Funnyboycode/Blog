@@ -1,0 +1,7 @@
+// 卡片渐变色
+@mixin grad($direction,$color1,$color2,$color3) {
+  background: -webkit-linear-gradient($direction, $color1 , $color2,$color3); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient($direction, $color1, $color2,$color3); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient($direction, $color1, $color2,$color3); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to $direction, $color1 , $color2,$color3); /* 标准的语法 */
+}
