@@ -44,7 +44,7 @@ export default {
 #container {
   position: relative;
   padding-bottom: 50%;
-  margin: 0 auto;
+  margin: 50px auto;
   background: url("../../../assets/images/keybord.jpg") center center no-repeat;
   background-size: 100% 100%;
   .wrap {

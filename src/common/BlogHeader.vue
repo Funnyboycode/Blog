@@ -53,7 +53,11 @@
           <router-link to="/backstage">
             <i class="el-icon-setting" style="margin-right: 15px;font-size:25px;"></i>
           </router-link>
-          <span>Funny</span>
+          <!-- <router-link v-show='!loginUser' to="/login" @changeStatus="changeStatus"> -->
+          <router-link v-show='!loginUser' to="/login">
+            <span>登录</span>
+          </router-link>
+          <span v-show='!!loginUser'>{{loginUser}}<span class="logout" @click="logout">[注销]</span></span>
         </el-menu-item>
       </el-menu>
     </div>
@@ -70,12 +74,23 @@ export default {
       value: [],
       list: [],
       loading: false,
-      states:[]
+      states:[],
+      // showUser:false,
+      // loginUser: ''
     };
   },
   watch: {
     value: 'changeData'
-    
+  },
+  computed: {
+    loginUser:{
+      get(){
+        return this.$store.state.loginUser;        
+      },
+      set(){
+
+      }
+    }
   },
   methods: {
     handleSelect(key, keyPath) {
@@ -118,10 +133,40 @@ export default {
       let oHeader = document.getElementById('header');
       oHeader.style.left = -scrollLeft + 'px';
 
+    },
+    // changeStatus(data){
+    //   console.log('changeStatus');
+    //   console.log(data);
+    //   this.showUser = true;
+    //   this.loginUser = this.$store.state.loginUser;
+    // },
+    //退出登录
+    logout(){
+      this.$confirm('此操作将退出登录, 是否注销?', '提示', {
+          confirmButtonText: '注销',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$store.commit('cleanLoginUser');
+          this.$message({
+            type: 'success',
+            message: '注销成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消注销'
+          });          
+        });
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.handleScroll)
+    console.log('mounted');
+    window.addEventListener('scroll', this.handleScroll);
+    if(this.$store.state.loginUser){
+      // this.showUser = true;
+      this.loginUser = this.$store.state.loginUser;
+    }
   },
 }
 </script>
@@ -170,5 +215,9 @@ export default {
   #header  /deep/ .setup:hover {
         background: #2d2d2d !important;
   }
- 
+  .logout {
+    font-size: 12px;
+    margin-left: 10px;
+    color:red;
+  }
 </style>

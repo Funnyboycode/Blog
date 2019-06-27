@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Welcome from '@/pages/welcome/Welcome'
+import Login from '@/common/Login'
 import Exhibition from '@/pages/exhibition/Exhibition'
 import ExhibitionAll from '@/pages/exhibition/ExhibitionAll'
 import ExhibitionShow from '@/pages/exhibition/ExhibitionShow'
@@ -20,6 +21,7 @@ import DressUp from '@/pages/backstage/components/DressUp'
 Vue.use(Router)
 
 export default new Router({
+  base: '/blog/',
   // savedPosition当且仅当通过浏览器的前进/后退按钮触发时才可用
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
@@ -32,6 +34,11 @@ export default new Router({
       path: '/',
       name: 'Welcome',
       component: Welcome
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/home',

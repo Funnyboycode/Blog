@@ -17,7 +17,7 @@
         </div>
       </el-footer>
     </el-container>
-    <div id="bg"></div>
+    <!-- <div id="bg"></div> -->
   </div>  
 </template>
 
@@ -48,36 +48,36 @@ export default {
         this.isRouterAlive = true
       })
     },
-    createStar() {
-      // 屏幕的尺寸
-      let screenW = document.documentElement.offsetWidth,
-          screenH = document.documentElement.offsetHeight,
-          bg = document.querySelector("#bg");
-      // console.log(screenW,screenH);
+    // createStar() {
+    //   // 屏幕的尺寸
+    //   let screenW = document.documentElement.offsetWidth,
+    //       screenH = document.documentElement.offsetHeight,
+    //       bg = document.querySelector("#bg");
+    //   // console.log(screenW,screenH);
       
-      // 2. 动态创建多个星星
-      for(let i=0; i<150; i++){
-        let star = document.createElement('star');
-        bg.appendChild(star);
+    //   // 2. 动态创建多个星星
+    //   for(let i=0; i<150; i++){
+    //     let star = document.createElement('star');
+    //     bg.appendChild(star);
 
-        //位置随机
-        let x = parseInt(Math.random() * (screenW-60));
-        let y = parseInt(Math.random() * (screenH-60));
-        star.style.left = x + 'px';
-        star.style.top = y + 'px';
+    //     //位置随机
+    //     let x = parseInt(Math.random() * (screenW-60));
+    //     let y = parseInt(Math.random() * (screenH-60));
+    //     star.style.left = x + 'px';
+    //     star.style.top = y + 'px';
 
-        //大小随机
-        let scale = Math.random() * 1.5;
-        star.style.transform = 'scale('+ scale + ', ' + scale + ')';
+    //     //大小随机
+    //     let scale = Math.random() * 1.5;
+    //     star.style.transform = 'scale('+ scale + ', ' + scale + ')';
 
-        //频率随机
-        let rate = Math.random() * 1.5;
-        star.style.animationDelay = rate + 's';
-      }
-    }
+    //     //频率随机
+    //     let rate = Math.random() * 1.5;
+    //     star.style.animationDelay = rate + 's';
+    //   }
+    // }
   },
   mounted() {
-    this.createStar()
+    // this.createStar()
   },
 }
 </script>

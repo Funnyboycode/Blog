@@ -12,6 +12,7 @@ export default new Vuex.Store({
   },
   // 放置同步修改state数据的方法
   mutations: {
+    // 保存登录用户数据
     saveLoginUser (state, value) {
       state.loginUser = value
       localStorage.setItem('user', value)
@@ -51,6 +52,11 @@ export default new Vuex.Store({
           break
       }
       localStorage.setItem(value.type, JSON.stringify(state[value.type]))
+    },
+    // 清除登录用户的缓存数据
+    cleanLoginUser (state, value) {
+      localStorage.setItem('user', '')
+      state.loginUser = ''
     }
   },
   // 放置异步修改state数据的方法

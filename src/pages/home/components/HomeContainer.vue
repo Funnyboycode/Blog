@@ -64,12 +64,17 @@ export default {
   created() {
     this.$store.dispatch('getArticleList');
     this.$store.dispatch('getProjectList');
-    this.projects = this.$store.state.projectlist.sort((a,b) => {
-      return b.visit - a.visit
-    });
-    this.articles = this.$store.state.articlelist.sort((a,b) => {
-      return b.visit - a.visit
-    });
+    if (this.$store.state.projectlist) {
+      this.projects = this.$store.state.projectlist.sort((a,b) => {
+        return b.visit - a.visit
+      });
+    }
+    if (this.$store.state.articlelist) {
+      this.articles = this.$store.state.articlelist.sort((a,b) => {
+        return b.visit - a.visit
+      });
+    }
+    
   },
   mounted() {
     //左右俩边的高度一致
