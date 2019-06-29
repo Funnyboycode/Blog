@@ -44,15 +44,21 @@ router.use('/register', (req, res) => {
     career,
     company,
     school,
-    emai} = req.body
+    email,
+    isAdmin
+  } = req.body
   db.Users.findOne({
     userName
   }).then(user => {
     if (user) { // 如果找到用户   则用户已被注册
-      res.send({errno: 1})
+      res.send({
+        errno: 1
+      })
       return
     }
-    res.send({errno: 0})
+    res.send({
+      errno: 0
+    })
     new db.Users({ // 保存注册成功的数据到users集合
       userName,
       pass,
@@ -67,10 +73,12 @@ router.use('/register', (req, res) => {
       career,
       company,
       school,
-      emai
+      email,
+      isAdmin
     }).save()
   })
 })
+
 // 存储项目数据
 router.use('/project', (req, res) => {
   let {
@@ -87,17 +95,27 @@ router.use('/project', (req, res) => {
     let sid = mongoose.Types.ObjectId(_id)
     let oldImgUrl
     // 找到之前的项目图片地址
-    db.Projects.findOne({_id: sid}).then(project => {
+    db.Projects.findOne({
+      _id: sid
+    }).then(project => {
       oldImgUrl = project.imgUrl
     })
-    db.Projects.updateOne({_id: sid}, {$set: {title,
-      webSite,
-      description,
-      imgUrl,
-      visit,
-      date}
+    db.Projects.updateOne({
+      _id: sid
+    }, {
+      $set: {
+        title,
+        webSite,
+        description,
+        imgUrl,
+        visit,
+        date
+      }
     }).then(() => {
-      res.send({error: 0, imgUrl: oldImgUrl}) // 返回修改成功
+      res.send({
+        error: 0,
+        imgUrl: oldImgUrl
+      }) // 返回修改成功
     })
   } else {
     new db.Projects({ // 保存注册成功的数据到db.Projects集合
@@ -109,27 +127,39 @@ router.use('/project', (req, res) => {
       date,
       classification
     }).save()
-    res.send({error: 1}) // 返回新建成功
+    res.send({
+      error: 1
+    }) // 返回新建成功
   }
 })
 
 // 删除项目数据
 router.use('/deleteProject', (req, res) => {
-  let { _id, imgUrl } = req.body
+  let {
+    _id,
+    imgUrl
+  } = req.body
   let sid = mongoose.Types.ObjectId(_id)
-  db.Projects.deleteOne({_id: sid}).then(() => {
+  db.Projects.deleteOne({
+    _id: sid
+  }).then(() => {
     // 存在图片则删除图片
     if (imgUrl) {
       fs.unlink(imgUrl, err => {
         if (err) {
-          res.send({error: 1})
+          res.send({
+            error: 1
+          })
         } else {
-          res.send({error: 0})
+          res.send({
+            error: 0
+          })
         }
       })
     }
   })
 })
+
 // 存储文章数据
 router.use('/article', (req, res) => {
   let {
@@ -146,17 +176,27 @@ router.use('/article', (req, res) => {
     let sid = mongoose.Types.ObjectId(_id)
     let oldImgUrl
     // 找到之前的文章图片地址的集合
-    db.Articles.findOne({_id: sid}).then(article => {
+    db.Articles.findOne({
+      _id: sid
+    }).then(article => {
       oldImgUrl = article.imgUrl
     })
-    db.Articles.updateOne({_id: sid}, {$set: {title,
-      text,
-      imgUrl,
-      visit,
-      date,
-      type}
+    db.Articles.updateOne({
+      _id: sid
+    }, {
+      $set: {
+        title,
+        text,
+        imgUrl,
+        visit,
+        date,
+        type
+      }
     }).then(() => {
-      res.send({error: 0, imgUrl: oldImgUrl}) // 返回修改成功
+      res.send({
+        error: 0,
+        imgUrl: oldImgUrl
+      }) // 返回修改成功
     })
   } else {
     new db.Articles({ // 保存注册成功的数据到db.Articles集合
@@ -168,26 +208,37 @@ router.use('/article', (req, res) => {
       type,
       classification
     }).save()
-    res.send({error: 1}) // 返回新建成功
+    res.send({
+      error: 1
+    }) // 返回新建成功
   }
 })
 
 // 删除文章数据
 router.use('/deleteArticle', (req, res) => {
-  let { _id, imgUrl } = req.body
+  let {
+    _id,
+    imgUrl
+  } = req.body
   let sid = mongoose.Types.ObjectId(_id)
-  db.Articles.deleteOne({_id: sid}).then(() => {
+  db.Articles.deleteOne({
+    _id: sid
+  }).then(() => {
     // 存在图片则删除图片
     if (imgUrl[0]) {
       imgUrl.forEach(img => {
         fs.unlink(img, err => {
           if (err) {
-            res.send({error: 1})
+            res.send({
+              error: 1
+            })
           }
         })
       })
     }
-    res.send({error: 0})
+    res.send({
+      error: 0
+    })
   })
 })
 
@@ -220,12 +271,16 @@ router.use('/deletePic', (req, res) => {
     imgUrl.forEach(img => {
       fs.unlink(img, err => {
         if (err) {
-          res.send({error: 1})
+          res.send({
+            error: 1
+          })
         }
       })
     })
   }
-  res.send({error: 0})
+  res.send({
+    error: 0
+  })
 })
 
 // 上传图片到本地
@@ -233,11 +288,15 @@ router.use('/upload', (req, res) => {
   upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
-      res.send({error: 1})
+      res.send({
+        error: 1
+      })
       return
     } else if (err) {
       // An unknown error occurred when uploading.
-      res.send({error: 1})
+      res.send({
+        error: 1
+      })
       return
     }
     // Everything went fine.
@@ -252,16 +311,125 @@ router.use('/upload', (req, res) => {
 router.use('/addVisit', (req, res) => {
   if (req.body.type === 'project') {
     let sid = mongoose.Types.ObjectId(req.body.id)
-    db.Projects.updateOne({_id: sid}, {$inc: {visit: 1}}).then(() => {
-      res.send({error: 0}) // 返回修改成功
+    db.Projects.updateOne({
+      _id: sid
+    }, {
+      $inc: {
+        visit: 1
+      }
+    }).then(() => {
+      res.send({
+        error: 0
+      }) // 返回修改成功
     })
   }
   if (req.body.type === 'article') {
     let sid = mongoose.Types.ObjectId(req.body.id)
-    db.Articles.updateOne({_id: sid}, {$inc: {visit: 1}}).then(() => {
-      res.send({error: 0}) // 返回修改成功
+    db.Articles.updateOne({
+      _id: sid
+    }, {
+      $inc: {
+        visit: 1
+      }
+    }).then(() => {
+      res.send({
+        error: 0
+      }) // 返回修改成功
     })
   }
 })
 
+// 保存评论
+router.use('/saveComment', (req, res) => {
+  let {
+    date,
+    ownerId,
+    fromId,
+    fromName,
+    fromAvatar,
+    likeNum,
+    content,
+    reply
+  } = req.body
+  new db.Comments({
+    date,
+    ownerId,
+    fromId,
+    fromName,
+    fromAvatar,
+    likeNum,
+    content,
+    reply
+  }).save((err) => {
+    if (err) {
+      res.send({error: 1})
+    } else {
+      res.send({error: 0})
+    }
+  })
+})
+
+// 查找评论和回复
+router.use('/getCommentAndReply', (req, res) => {
+  function getComments () {
+    return new Promise((resolve) => {
+      db.Comments.find({ownerId: req.body.articleId}).then(comments => {
+        resolve(comments)
+      })
+    })
+  }
+  function doGetReplies (arr, comment) {
+    return new Promise(resolve => {
+      db.Replies.find({commentId: comment._id}).then(replies => {
+        comment.reply = replies
+        arr.push(comment)
+        resolve()
+      })
+    })
+  }
+
+  async function doGet () {
+    let comments = await getComments()
+    let data = []
+    for (let comment of comments) {
+      await doGetReplies(data, comment)
+    }
+    return data
+  }
+  doGet().then(comments => {
+    res.send({error: 0, comments})
+  }).catch(e => res.send({error: 1}))
+})
+
+// 保存回复
+router.use('/saveReply', (req, res) => {
+  let {
+    commentId,
+    fromId,
+    fromName,
+    fromAvatar,
+    toId,
+    toName,
+    toAvatar,
+    content,
+    date
+  } = req.body
+  new db.Replies({
+    commentId,
+    fromId,
+    fromName,
+    fromAvatar,
+    toId,
+    toName,
+    toAvatar,
+    content,
+    date
+  }).save((err) => {
+    if (err) {
+      res.send({error: 1})
+    } else {
+      res.send({error: 0})
+    }
+  })
+})
 module.exports = router

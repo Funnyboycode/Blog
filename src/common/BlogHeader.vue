@@ -50,14 +50,14 @@
           </el-select>
         </el-menu-item>
         <el-menu-item class="setup">
-          <router-link to="/backstage">
-            <i class="el-icon-setting" style="margin-right: 15px;font-size:25px;"></i>
+          <router-link to="/backstage" >
+            <div class="el-icon-setting icon" style="margin-right: 15px;font-size:25px; float:left"></div>
           </router-link>
           <!-- <router-link v-show='!loginUser' to="/login" @changeStatus="changeStatus"> -->
           <router-link v-show='!loginUser' to="/login">
-            <span>登录</span>
+            <span class="login">登录</span>
           </router-link>
-          <span v-show='!!loginUser'>{{loginUser}}<span class="logout" @click="logout">[注销]</span></span>
+          <span v-show='!!loginUser' class="logined"><span class="loginName">{{loginUser}}</span><span class="logout" @click="logout">[注销]</span></span>
         </el-menu-item>
       </el-menu>
     </div>
@@ -195,9 +195,11 @@ export default {
   }
   .el-menu-demo {
     border-bottom: none !important;
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     .el-menu-item {
       font-size: 20px !important;
-      padding: 0 30px !important;
       user-select: none !important;
       .el-select {
         display: block;
@@ -209,14 +211,30 @@ export default {
   }
   #header /deep/ .el-submenu__title{
     font-size: 20px !important;
-    padding: 0 30px !important;
     user-select: none !important;
   }
   #header  /deep/ .setup:hover {
         background: #2d2d2d !important;
   }
+  .login{
+    float: left;
+  }
+  .logined {
+    float: left;
+  }
+  .icon {
+    line-height: 60px;
+  }
+  .loginName {
+    float: left;
+    overflow: hidden;
+    max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   .logout {
     font-size: 12px;
+    float: left;
     margin-left: 10px;
     color:red;
   }

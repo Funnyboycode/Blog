@@ -45,7 +45,8 @@ export default {
         career: '', // 职业
         company: '', // 公司
         school: '', // 学校
-        email: '' // 邮箱
+        email: '', // 邮箱
+        isAdmin: 0 //是否是管理员
       },
       rules: {
         pass: [

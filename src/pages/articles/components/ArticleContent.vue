@@ -25,7 +25,9 @@
     <template v-else>
         <!-- 显示完整内容的画面 -->
         <div class="showBg">
-            <div class="ql-editor" v-html="content"></div>            
+            <div class="ql-editor" v-html="content"></div>
+            <!-- <comment-reply :comments="commentData" :articleId="articleId"></comment-reply> -->
+            <comment-reply :articleId="articleId"></comment-reply>
             <div class="hideBtn">
                 <!-- 绑定点击事件onHide，点击收起内容 -->
                 <a href="#" @click.stop.prevent="onHide">收起&nbsp;
@@ -39,12 +41,19 @@
 </template>
 
 <script>
+// import * as CommentData from '../../../../js/mockdata'
+import commentReply from '@/common/commentReply'
 export default {
   name: "ArticleContent",
   inject:['reload'],
   props:['article'],
+  components:{
+    commentReply
+  },
   data() {
     return {
+      articleId: this.article._id,
+      commentData:[],
       con: '',
       isHide: true    //初始值为true，显示为折叠画面      
     }
@@ -74,7 +83,10 @@ export default {
       // console.log(val); // 富文本获得焦点时的内容
       editor.enable(false); // 在获取焦点的时候禁用
     }
-  }
+  },
+  created() {
+    this.commentData = [];
+  },
 }
 </script>
 

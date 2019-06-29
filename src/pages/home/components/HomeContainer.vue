@@ -2,7 +2,7 @@
   <div id="homeContainer">
     <div class="showNum">
       <span>显示前</span>
-      <input type="number" name="" id="num" min='0' v-model="input">
+      <input type="number" name="" id="num" min='0' max ='12' v-model="input">
       <span>热门项目和文章</span>
     </div>
     <div ref="container" id="container">
@@ -35,7 +35,7 @@ export default {
   name: "HomeContainer",
   data () {
     return {
-      input: 10,
+      input: 5,
       articles: [],
       projects: []
     };
@@ -74,7 +74,7 @@ export default {
         return b.visit - a.visit
       });
     }
-    
+
   },
   mounted() {
     //左右俩边的高度一致
@@ -109,7 +109,7 @@ export default {
       flex-direction: column;
       align-items: center;
       width: 40%;
-      min-height: 500px;
+      height: 550px;
       background-color: #494a4f;
       border-radius: 5px;
       h1 {
